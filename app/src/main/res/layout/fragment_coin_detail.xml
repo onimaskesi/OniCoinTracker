@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        
+        <variable
+            name="chosenCoin"
+            type="com.onimaskesi.onicointracker.model.Coin" />
+        
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".view.CoinDetailFragment">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:downloadImageFromUrl="@{`https://cryptoicons.org/api/icon/`+ chosenCoin.sym.toLowerCase() +`/200.png`}"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/coinNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{chosenCoin.name}"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/coinSymbolTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{chosenCoin.sym}"/>
+
+    <TextView
+        android:id="@+id/coinUsdTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{chosenCoin.quote.usd.price + `$`}"
+        android:textSize="20dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorGreen"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/coinVolumeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{chosenCoin.quote.usd.volume}"
+            android:textSize="20dp"
+            android:textColor="@color/colorOrange"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  volume"
+            android:textSize="20dp"
+            android:textColor="@color/colorOrange"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="%"
+        android:textSize="30sp"
+        android:textColor="@color/purple_500"
+        android:layout_marginTop="15dp"/>
+
+    <LinearLayout
+        android:id="@+id/onehourpercentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+
+        <View
+            android:id="@+id/onehourpercentStart"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/purple_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_gravity="center"
+                android:text="1h"
+                android:textColor="@color/purple_500"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/onehourpercentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    app:setTextWithColor="@{chosenCoin.quote.usd.oneHourPercent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_500"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/onehourpercentFinish"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/onedaypercentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+
+        <View
+            android:id="@+id/onedaypercentStart"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_gravity="center"
+                android:text="24h"
+                android:textColor="@color/purple_500"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/onedaypercentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    app:setTextWithColor="@{chosenCoin.quote.usd.oneDayPercent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_500"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/onedaypercentFinish"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sevendaypercentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+
+        <View
+            android:id="@+id/sevendaypercentStart"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_gravity="center"
+                android:text="7d"
+                android:textColor="@color/purple_500"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/sevendaypercentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    app:setTextWithColor="@{chosenCoin.quote.usd.sevenDayPercent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_500"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/sevendaypercentFinish"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thirtydaypercentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+
+        <View
+            android:id="@+id/thirtydaypercentStart"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_gravity="center"
+                android:text="30d"
+                android:textColor="@color/purple_500"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/thirtydaypercentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    app:setTextWithColor="@{chosenCoin.quote.usd.thirtyDayPercent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_500"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/thirtydaypercentFinish"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sixtydaypercentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+
+        <View
+            android:id="@+id/sixtydaypercentStart"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_gravity="center"
+                android:text="60d"
+                android:textColor="@color/purple_500"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/sixtydaypercentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    app:setTextWithColor="@{chosenCoin.quote.usd.sixtyDayPercent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_500"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/sixtydayrpercentFinish"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ninetydaypercentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
+
+        <View
+            android:id="@+id/ninetydaypercentStart"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/purple_500"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:layout_gravity="center"
+                android:text="90d"
+                android:textColor="@color/purple_500"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/ninetydaypercentTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="7dp"
+                    app:setTextWithColor="@{chosenCoin.quote.usd.ninetyDayPercent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_500"/>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/ninetydaypercentFinish"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@color/purple_500"/>
+    </LinearLayout>
+
+
+</LinearLayout>
+
+</layout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="roundString"
+            type="com.onimaskesi.onicointracker.util.RoundString" />
+
+        <variable
+            name="coin"
+            type="com.onimaskesi.onicointracker.model.Coin" />
+
+        <variable
+            name="coinClickListener"
+            type="com.onimaskesi.onicointracker.adapter.CoinClickListener" />
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/golden_background"
+    android:layout_margin="5dp"
+    android:onClick="@{coinClickListener::coinClick}">
+
+    <TextView
+        android:id="@+id/coinId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:text="@{String.valueOf(coin.id)}"
+        />
+
+    <ImageView
+        android:id="@+id/coinIconIV"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_margin="10dp"
+        android:downloadImageFromCoinSymbol="@{coin.sym}"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/coinNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@{coin.name}"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/coinSymbolTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@{coin.sym}"
+            android:textColor="@color/colorGray"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/coinUsdTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="@color/colorGreen"
+        android:textSize="18sp"
+        android:text="@{roundString.roundStringFun(coin.quote.usd.price, 2) + '$'}"/>
+
+    <TextView
+        android:id="@+id/coinPercentTV"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:background="@drawable/circle_shape"
+        android:text="@{roundString.roundStringFun(coin.quote.usd.oneDayPercent, 2) + '%'}"/>
+
+</LinearLayout>
+
+</layout>
