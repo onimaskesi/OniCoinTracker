@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.onimaskesi.onicointracker.model.Coin
 import com.onimaskesi.onicointracker.model.CoinList
+import com.onimaskesi.onicointracker.model.FavCoin
 import com.onimaskesi.onicointracker.service.CoinApiService
 import com.onimaskesi.onicointracker.service.CoinDatabase
 import com.onimaskesi.onicointracker.util.TimeCheckSharedPreferences
@@ -125,5 +126,19 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
 
         }
     }
+
+    fun setFavCoin(favCoin: FavCoin) {
+        launch {
+            val coinDatabase = CoinDatabase(getApplication()) as CoinDatabase
+            val favCoinDao = coinDatabase.favCoinDao()
+
+            if(favCoinDao.getFavCoin(favCoin.id) == null){
+                favCoinDao.insertAll(favCoin)
+                Log.d("FavCoin", "added new Fav that's symbol is ${favCoinDao.getFavCoin(favCoin.id).sym}")
+            }
+
+        }
+    }
+
 
 }

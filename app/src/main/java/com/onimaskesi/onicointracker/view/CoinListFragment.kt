@@ -16,17 +16,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.adapter.CoinRecyclerAdapter
+import com.onimaskesi.onicointracker.adapter.FavBtnClickListener
 import com.onimaskesi.onicointracker.model.Coin
+import com.onimaskesi.onicointracker.model.FavCoin
 import com.onimaskesi.onicointracker.viewmodel.CoinListViewModel
+import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class CoinListFragment : Fragment() {
+class CoinListFragment : Fragment(), FavBtnClickListener {
 
     private lateinit var viewModel : CoinListViewModel
-    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf())
-
+    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), this)
 
     private var isLoading = false
 
@@ -73,6 +75,8 @@ class CoinListFragment : Fragment() {
             viewModel.refreshFromInternet(start, limit)
 
             swipeRefreshLayout.isRefreshing = false
+
+
         }
 
         initScrollLister()
@@ -89,7 +93,6 @@ class CoinListFragment : Fragment() {
 
         coinListErrorMessage.visibility = View.INVISIBLE
         coinListProgressBar.visibility = View.VISIBLE
-
 
         viewModel.coinLoading.observe(viewLifecycleOwner, Observer{ isLoading ->
             isLoading?.let {
@@ -167,6 +170,21 @@ class CoinListFragment : Fragment() {
         start += limit
         prefences.edit().putInt(KEY, start).apply()
         viewModel.refreshFromInternet(start, limit)
+
+    }
+
+    override fun favBtnClick(view: View) {
+
+        view.favBtn.setImageResource(R.drawable.filled_heart)
+        val coinId = view.coinIdTV.text.toString().toInt()
+        val coinSym = view.coinSymTV.text.toString()
+
+        Log.d("favBtn", "coin id : $coinId")
+        Log.d("favBtn", "coin id : $coinSym")
+
+        val favCoin = FavCoin(coinId, coinSym)
+
+        viewModel.setFavCoin(favCoin)
 
     }
 

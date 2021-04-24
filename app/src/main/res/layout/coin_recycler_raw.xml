@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <data>
 
@@ -15,6 +15,11 @@
         <variable
             name="coinClickListener"
             type="com.onimaskesi.onicointracker.adapter.CoinClickListener" />
+
+        <variable
+            name="favBtnClickListener"
+            type="com.onimaskesi.onicointracker.adapter.FavBtnClickListener" />
+
     </data>
 
 <LinearLayout
@@ -86,10 +91,43 @@
         android:layout_margin="5dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@drawable/circle_shape"
         android:text="@{roundString.roundStringFun(coin.quote.usd.oneDayPercent, 2) + '%'}"/>
+
+    <LinearLayout
+        android:id="@+id/favBtnLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:onClick="@{favBtnClickListener::favBtnClick}"
+        android:elevation="1dp">
+
+        <ImageView
+            android:id="@+id/favBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:layout_gravity="center"
+            android:src="@drawable/heart"
+            android:layout_margin="5dp"
+            />
+
+        <TextView
+            android:id="@+id/coinIdTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@{coinId.text}"/>
+        <TextView
+            android:id="@+id/coinSymTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@{coinSymbolTV.text}"/>
+
+    </LinearLayout>
 
 </LinearLayout>
 

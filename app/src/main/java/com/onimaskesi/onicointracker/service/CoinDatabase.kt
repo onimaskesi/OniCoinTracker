@@ -4,13 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.onimaskesi.onicointracker.model.Coin
+import com.onimaskesi.onicointracker.model.FavCoin
 import com.onimaskesi.onicointracker.model.USD
 
-@Database(entities = arrayOf(Coin::class), version = 3)
+@Database(entities = arrayOf(Coin::class, FavCoin::class), version = 7)
 abstract class CoinDatabase : RoomDatabase() {
 
     abstract fun coinDao() : CoinDao
+    abstract fun favCoinDao() : FavCoinDao
 
     companion object {
 
@@ -29,7 +33,13 @@ abstract class CoinDatabase : RoomDatabase() {
                 context.applicationContext,
                 CoinDatabase :: class.java,
                 "roomDatabase"
-            ).build()
+            ).addMigrations(MIGRATION_3_7).build()
+
+        val MIGRATION_3_7: Migration = object : Migration(3, 7) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `FavCoin` (`id` INTEGER PRIMARY KEY NOT NULL, `sym` TEXT NOT NULL)")
+            }
+        }
 
     }
 

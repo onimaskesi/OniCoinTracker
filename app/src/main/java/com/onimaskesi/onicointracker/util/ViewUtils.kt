@@ -41,8 +41,13 @@ fun createPlaceholder(context : Context): CircularProgressDrawable {
 
 @BindingAdapter("android:downloadImageFromCoinSymbol")
 fun downloadImageFromCoinSymbol(view : ImageView, symbol : String){
+    /*
     val base_url_start = "https://cryptoicons.org/api/icon/"
     val base_url_end = "/200.png"
+     */
+    val base_url_start = "https://icons.bitbot.tools/api/"
+    val base_url_end = "/128x128"
+
     val url = base_url_start + symbol.toLowerCase() + base_url_end
     view.downloadImage(url, createPlaceholder(view.context))
 }

@@ -14,7 +14,6 @@ import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.databinding.FragmentCoinDetailBinding
 import com.onimaskesi.onicointracker.viewmodel.CoinDetailViewModel
 
-
 class CoinDetailFragment : Fragment() {
 
     private var coinId = 0

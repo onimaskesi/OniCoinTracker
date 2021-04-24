@@ -3,25 +3,22 @@ package com.onimaskesi.onicointracker.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.databinding.CoinRecyclerRawBinding
 import com.onimaskesi.onicointracker.model.Coin
-import com.onimaskesi.onicointracker.util.CreateIconUrlFromCoinSymbol
 import com.onimaskesi.onicointracker.util.RoundString
-import com.onimaskesi.onicointracker.util.createPlaceholder
-import com.onimaskesi.onicointracker.util.downloadImage
-import com.onimaskesi.onicointracker.view.CoinDetailFragmentDirections
 import com.onimaskesi.onicointracker.view.CoinListFragmentDirections
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
-import java.math.BigDecimal
-import java.math.RoundingMode
 
-class CoinRecyclerAdapter(val coinList: ArrayList<Coin>) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>() , CoinClickListener {
 
-    class CoinViewHolder(var view : CoinRecyclerRawBinding) : RecyclerView.ViewHolder(view.root) {
+class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val favBtnClickListener : FavBtnClickListener) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>() , CoinClickListener {
+
+
+    class CoinViewHolder(var view: CoinRecyclerRawBinding) : RecyclerView.ViewHolder(view.root) {
 
     }
 
@@ -36,15 +33,18 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>) : RecyclerView.Adapter<
         return coinList.size
     }
 
+
+
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
 
         holder.view.coin = coinList.get(position)
         holder.view.roundString = RoundString()
         holder.view.coinClickListener = this
+        holder.view.favBtnClickListener = favBtnClickListener
 
     }
 
-    fun updateCoinList(newCoinList : List<Coin>){
+    fun updateCoinList(newCoinList: List<Coin>){
         coinList.clear()
         coinList.addAll(newCoinList)
         notifyDataSetChanged()
