@@ -28,11 +28,12 @@ import java.math.RoundingMode
 class CoinListFragment : Fragment(), FavBtnClickListener {
 
     private lateinit var viewModel : CoinListViewModel
-    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), this)
+    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this)
 
     private var isLoading = false
 
     var coinList : ArrayList<Coin> = arrayListOf()
+    var isFavList : ArrayList<Boolean> = arrayListOf()
 
     var start = 1
     var limit  = 10
@@ -127,6 +128,21 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
 
                 recyclerCoinAdapter.updateCoinList(coinList)
                 loadingMore(false)
+            }
+
+        })
+
+        viewModel.coinsIsFav.observe(viewLifecycleOwner, Observer { isFavArray ->
+
+            isFavArray?.let{
+
+                if(isFavArray.containsAll(isFavList)){
+                    isFavList.clear()
+                }
+                isFavList.addAll(isFavArray)
+
+                recyclerCoinAdapter.updateFavList(isFavList)
+
             }
 
         })

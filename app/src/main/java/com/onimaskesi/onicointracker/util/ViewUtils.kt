@@ -2,6 +2,7 @@ package com.onimaskesi.onicointracker.util
 
 import android.content.Context
 import android.graphics.Color
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -72,7 +73,16 @@ fun setTextWithColor(view: TextView, percent : String?){
         view.setText(percent + "%")
 
     }
+}
 
+@BindingAdapter("bind:isFav")
+fun isFav(view : ImageView, isFavorite : Boolean){
+
+    if(isFavorite){
+        view.setImageResource(R.drawable.filled_heart)
+    } else {
+        view.setImageResource(R.drawable.heart)
+    }
 
 }
 

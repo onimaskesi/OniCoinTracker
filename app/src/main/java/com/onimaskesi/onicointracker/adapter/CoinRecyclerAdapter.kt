@@ -1,5 +1,6 @@
 package com.onimaskesi.onicointracker.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import com.onimaskesi.onicointracker.view.CoinListFragmentDirections
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 
 
-class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val favBtnClickListener : FavBtnClickListener) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>() , CoinClickListener {
+class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val isfavList : ArrayList<Boolean>, val favBtnClickListener : FavBtnClickListener) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>() , CoinClickListener {
 
 
     class CoinViewHolder(var view: CoinRecyclerRawBinding) : RecyclerView.ViewHolder(view.root) {
@@ -37,6 +38,11 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val favBtnClickListener
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
 
+        if(position < isfavList.size){
+            holder.view.isFav = isfavList.get(position)
+        } else{
+            holder.view.isFav = false
+        }
         holder.view.coin = coinList.get(position)
         holder.view.roundString = RoundString()
         holder.view.coinClickListener = this
@@ -48,6 +54,14 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val favBtnClickListener
         coinList.clear()
         coinList.addAll(newCoinList)
         notifyDataSetChanged()
+    }
+
+    fun updateFavList(newIsFavList : List<Boolean>){
+
+        isfavList.clear()
+        isfavList.addAll(newIsFavList)
+        notifyDataSetChanged()
+
     }
 
     override fun coinClick(view: View) {

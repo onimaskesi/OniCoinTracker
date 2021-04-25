@@ -22,6 +22,8 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
     val coinErrorMessage = MutableLiveData<Boolean>()
     val coinLoading = MutableLiveData<Boolean>()
 
+    val coinsIsFav = MutableLiveData<List<Boolean>>()
+
     private val coinApiService = CoinApiService()
     private val disposable = CompositeDisposable()
 
@@ -84,9 +86,12 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
     }
 
     fun setCoins(coinList : List<Coin>?){
+
+        setCoinsIsFavArray(coinList)
         coins.value = coinList
         coinErrorMessage.value = false
         coinLoading.value = false
+
     }
 
     fun setError(e : Throwable){
@@ -138,6 +143,31 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
             }
 
         }
+    }
+
+    fun setCoinsIsFavArray(coinList : List<Coin>?){
+        launch{
+            val coinDatabase = CoinDatabase(getApplication()) as CoinDatabase
+            val favCoinDao = coinDatabase.favCoinDao()
+
+            var coinsIsFavArray = arrayListOf<Boolean>()
+
+            coinList?.let{
+                for(coin in coinList){
+                    if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
+
+                        coinsIsFavArray.add(false)
+
+                    } else {
+                        coinsIsFavArray.add(true)
+                    }
+                }
+
+                coinsIsFav.value = coinsIsFavArray
+
+            }
+        }
+
     }
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,6 +12,10 @@
         <variable
             name="coin"
             type="com.onimaskesi.onicointracker.model.Coin" />
+
+        <variable
+            name="isFav"
+            type="Boolean" />
 
         <variable
             name="coinClickListener"
@@ -110,6 +115,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:layout_gravity="center"
+            bind:isFav="@{isFav}"
             android:src="@drawable/heart"
             android:layout_margin="5dp"
             />
