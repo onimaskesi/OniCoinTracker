@@ -87,6 +87,13 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
             start = prefences.getInt(KEY, 1)
         }
 
+        homeBtn.setOnClickListener {
+            homeBtnClicked()
+        }
+
+        favBtn.setOnClickListener {
+            favBtnClicked()
+        }
 
     }
 
@@ -126,7 +133,8 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
                 }
                 coinList.addAll(coins)
 
-                recyclerCoinAdapter.updateCoinList(coinList)
+                updateRecyclerView()
+
                 loadingMore(false)
             }
 
@@ -141,12 +149,16 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
                 }
                 isFavList.addAll(isFavArray)
 
-                recyclerCoinAdapter.updateFavList(isFavList)
+                updateRecyclerView()
 
             }
 
         })
 
+    }
+
+    fun updateRecyclerView(){
+        recyclerCoinAdapter.updateCoinList(coinList, isFavList)
     }
 
     fun loadingMore(isLoad : Boolean){
@@ -202,6 +214,14 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
 
         viewModel.setFavCoin(favCoin)
 
+    }
+
+    fun homeBtnClicked(){
+        Toast.makeText(context, "homeBtnClicked", Toast.LENGTH_SHORT).show()
+    }
+
+    fun favBtnClicked(){
+        Toast.makeText(context, "favBtnClicked", Toast.LENGTH_SHORT).show()
     }
 
 }

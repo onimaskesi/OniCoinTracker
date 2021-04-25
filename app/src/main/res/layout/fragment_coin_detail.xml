@@ -17,7 +17,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.CoinDetailFragment">
+    tools:context=".view.CoinDetailFragment"
+    android:background="@drawable/golden_background">
 
     <ImageView
         android:id="@+id/chosenCoinIconIV"
@@ -62,14 +63,14 @@
             android:layout_height="wrap_content"
             android:text="@{chosenCoin.quote.usd.volume}"
             android:textSize="20dp"
-            android:textColor="@color/colorOrange"/>
+            android:textColor="@color/colorDarkOrange"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="  volume"
             android:textSize="20dp"
-            android:textColor="@color/colorOrange"/>
+            android:textColor="@color/colorDarkOrange"/>
 
     </LinearLayout>
 

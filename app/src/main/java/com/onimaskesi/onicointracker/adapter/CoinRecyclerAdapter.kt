@@ -50,19 +50,16 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val isfavList : ArrayLi
 
     }
 
-    fun updateCoinList(newCoinList: List<Coin>){
+    fun updateCoinList(newCoinList: List<Coin>, newIsFavList : List<Boolean>){
+
         coinList.clear()
         coinList.addAll(newCoinList)
-        notifyDataSetChanged()
-    }
-
-    fun updateFavList(newIsFavList : List<Boolean>){
 
         isfavList.clear()
         isfavList.addAll(newIsFavList)
         notifyDataSetChanged()
-
     }
+
 
     override fun coinClick(view: View) {
         val action = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())

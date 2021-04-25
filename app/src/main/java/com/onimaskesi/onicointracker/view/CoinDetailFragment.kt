@@ -1,5 +1,6 @@
 package com.onimaskesi.onicointracker.view
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -55,64 +59,13 @@ class CoinDetailFragment : Fragment() {
         viewModel.coinLiveData.observe(viewLifecycleOwner, Observer { coin ->
 
             coin?.let {
-                //fillTheViewValues(it)
+
                 dataBinding.chosenCoin = it
-                //changePercentsColors()
+
             }
 
         })
     }
 
-    fun changeColorPercent(percentTV : TextView){
-        val value = percentTV.text
-        if(value.get(0) == '-'){
-            percentTV.setTextColor(Color.RED)
-        }
-        else {
-            percentTV.setTextColor(Color.GREEN)
-        }
-    }
-
-    fun changePercentsColors(){
-        changeColorPercent(dataBinding.onehourpercentTV)
-        changeColorPercent(dataBinding.onedaypercentTV)
-        changeColorPercent(dataBinding.sevendaypercentTV)
-        changeColorPercent(dataBinding.thirtydaypercentTV)
-        changeColorPercent(dataBinding.sixtydaypercentTV)
-        changeColorPercent(dataBinding.ninetydaypercentTV)
-    }
-
-    /*
-    fun fillTheViewValues(coin : Coin){
-
-        this.context?.let {
-            coinDetailIconTV.downloadImage("https://cryptoicons.org/api/icon/${coin.sym!!.toLowerCase()}/200.png", createPlaceholder(it))
-        }
-
-        coinNameTV.text = coin.name
-        coinSymbolTV.text = coin.sym
-        coinUsdTV.text = coin.quote?.usd?.price + "$"
-        coinVolumeTV.text = coin.quote?.usd?.volume
-
-        onehourpercentTV.text = coin.quote?.usd?.oneHourPercent + "%"
-        changeColorPercent(onehourpercentTV)
-
-        onedaypercentTV.text = coin.quote?.usd?.oneDayPercent + "%"
-        changeColorPercent(onedaypercentTV)
-
-        sevendaypercentTV.text = coin.quote?.usd?.sevenDayPercent + "%"
-        changeColorPercent(sevendaypercentTV)
-
-        thirtydaypercentTV.text = coin.quote?.usd?.thirtyDayPercent + "%"
-        changeColorPercent(thirtydaypercentTV)
-
-        sixtydaypercentTV.text = coin.quote?.usd?.sixtyDayPercent + "%"
-        changeColorPercent(sixtydaypercentTV)
-
-        ninetydaypercentTV.text = coin.quote?.usd?.ninetyDayPercent + "%"
-        changeColorPercent(ninetydaypercentTV)
-    }
-
-     */
 
 }

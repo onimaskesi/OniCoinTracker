@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -67,7 +68,7 @@ fun setTextWithColor(view: TextView, percent : String?){
             view.setTextColor(Color.RED)
         }
         else {
-            view.setTextColor(Color.GREEN)
+            view.setTextColor(getColor(view.context, R.color.colorGreen))
         }
 
         view.setText(percent + "%")
