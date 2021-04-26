@@ -88,7 +88,7 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
     fun setCoins(coinList : List<Coin>?){
 
         setCoinsIsFavArray(coinList)
-        coins.value = coinList
+        coins.value = coinList!!
         coinErrorMessage.value = false
         coinLoading.value = false
 

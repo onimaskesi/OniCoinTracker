@@ -77,7 +77,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
 
             swipeRefreshLayout.isRefreshing = false
 
-
         }
 
         initScrollLister()
@@ -87,12 +86,8 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
             start = prefences.getInt(KEY, 1)
         }
 
-        homeBtn.setOnClickListener {
-            homeBtnClicked()
-        }
-
-        favBtn.setOnClickListener {
-            favBtnClicked()
+        favNavigationBtn.setOnClickListener {
+            favNavigationBtnClicked(it)
         }
 
     }
@@ -216,12 +211,9 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
 
     }
 
-    fun homeBtnClicked(){
-        Toast.makeText(context, "homeBtnClicked", Toast.LENGTH_SHORT).show()
-    }
-
-    fun favBtnClicked(){
-        Toast.makeText(context, "favBtnClicked", Toast.LENGTH_SHORT).show()
+    fun favNavigationBtnClicked(view : View){
+        val action = CoinListFragmentDirections.actionCoinListFragmentToFavFragment()
+        Navigation.findNavController(view).navigate(action)
     }
 
 }

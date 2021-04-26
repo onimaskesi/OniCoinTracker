@@ -13,13 +13,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="142" />
-                            <option name="y" value="21" />
+                            <option name="x" value="222" />
+                            <option name="y" value="-95" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_coinDetailFragment_to_coinListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_coinDetailFragment_to_favFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -34,13 +39,44 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-113" />
-                            <option name="y" value="15" />
+                            <option name="x" value="-193" />
+                            <option name="y" value="-77" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_coinListFragment_to_coinDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_coinListFragment_to_favFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="favFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="52" />
+                            <option name="y" value="380" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_favFragment_to_coinDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_favFragment_to_coinListFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
