@@ -24,7 +24,7 @@ fun ImageView.downloadImage(url : String, placeholder : CircularProgressDrawable
     val options =
             RequestOptions()
                     .placeholder(placeholder)
-                    .error(R.drawable.ic_launcher_foreground)
+                    .error(R.drawable.ic_baseline_monetization_on_24)
 
     Glide.with(this)
             .setDefaultRequestOptions(options)
