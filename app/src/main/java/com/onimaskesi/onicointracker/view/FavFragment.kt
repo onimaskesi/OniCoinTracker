@@ -1,8 +1,7 @@
 package com.onimaskesi.onicointracker.view
 
-import androidx.lifecycle.ViewModelProvider
+
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +14,9 @@ import com.onimaskesi.onicointracker.adapter.CoinClickListener
 import com.onimaskesi.onicointracker.adapter.CoinRecyclerAdapter
 import com.onimaskesi.onicointracker.adapter.FavBtnClickListener
 import com.onimaskesi.onicointracker.model.Coin
-import com.onimaskesi.onicointracker.model.FavCoin
-import com.onimaskesi.onicointracker.viewmodel.CoinListViewModel
 import com.onimaskesi.onicointracker.viewmodel.FavViewModel
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 import kotlinx.android.synthetic.main.fav_fragment.*
-import kotlinx.android.synthetic.main.fragment_coin_list.*
 
 class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
@@ -52,6 +48,17 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
         homeNavigationBtn.setOnClickListener{
             homeNavigationBtnClicked(it)
+        }
+
+        favSwipeRefreshLayout.setOnRefreshListener {
+            favListProgressBar.visibility = View.VISIBLE
+            favListErrorMessage.visibility = View.GONE
+            favListRecyclerView.visibility = View.GONE
+
+            viewModel.getFavCoins()
+
+            favSwipeRefreshLayout.isRefreshing = false
+
         }
     }
 
@@ -86,9 +93,7 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
             coins?.let{
                 favListRecyclerView.visibility = View.VISIBLE
 
-                if(coins.containsAll(coinList)){
-                    coinList.clear()
-                }
+                coinList.clear()
                 coinList.addAll(coins)
 
                 updateRecyclerView()
@@ -116,18 +121,8 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     override fun favBtnClick(view: View) {
 
         view.favBtn.setImageResource(R.drawable.heart)
-        /*
         val coinId = view.coinIdTV.text.toString().toInt()
-        val coinSym = view.coinSymTV.text.toString()
-
-        Log.d("favBtn", "coin id : $coinId")
-        Log.d("favBtn", "coin id : $coinSym")
-
-        val favCoin = FavCoin(coinId, coinSym)
-
-        viewModel.setFavCoin(favCoin)
-
-         */
+        viewModel.deleteFavCoin(coinId)
 
     }
 

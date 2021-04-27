@@ -90,6 +90,19 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
         Log.e("Api", "FavCoin Api Error: " + e.message.toString())
     }
 
+    fun deleteFavCoin(coinId: Int) {
+        launch {
+            val favCoinDao = CoinDatabase(getApplication()).favCoinDao()
+            val coinDao = CoinDatabase(getApplication()).coinDao()
+
+            favCoinDao.deleteFromId(coinId)
+
+            val coin = coinDao.getCoin(coinId)
+            coin.isFavorite = 0
+            coinDao.updateCoin(coin)
+
+        }
+    }
 
 
 }

@@ -192,8 +192,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
                 coin.isFavorite = 1
             }
         }
-        Log.d("favBtn", "fav coin id : $coinId")
-        Log.d("favBtn", "fav coin sym : $coinSym")
 
         val favCoin = FavCoin(coinId, coinSym)
 

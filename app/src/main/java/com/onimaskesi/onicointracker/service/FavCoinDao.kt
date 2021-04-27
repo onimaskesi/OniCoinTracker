@@ -9,7 +9,7 @@ import com.onimaskesi.onicointracker.model.FavCoin
 interface FavCoinDao {
 
     @Insert
-    suspend fun insertAll(vararg favCoin : FavCoin) : List<Long>
+    suspend fun insertAll(vararg favCoin : FavCoin)
 
     @Query("SELECT * FROM FavCoin")
     suspend fun getFavCoins(): List<FavCoin>
@@ -19,5 +19,8 @@ interface FavCoinDao {
 
     @Query("DELETE FROM FavCoin")
     suspend fun deleteAll()
+
+    @Query("DELETE FROM FavCoin WHERE id = :favCoinId")
+    suspend fun deleteFromId(favCoinId : Int)
 
 }

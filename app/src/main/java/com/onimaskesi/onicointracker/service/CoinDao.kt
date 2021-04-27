@@ -1,9 +1,6 @@
 package com.onimaskesi.onicointracker.service
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.onimaskesi.onicointracker.model.Coin
 import com.onimaskesi.onicointracker.model.USD
 
@@ -12,6 +9,9 @@ interface CoinDao {
 
     @Insert
     suspend fun insertAll(vararg coin : Coin) : List<Long>
+
+    @Update
+    suspend fun updateCoin(vararg coin : Coin)
 
     @Query("SELECT * FROM Coin")
     suspend fun getCoins(): List<Coin>
