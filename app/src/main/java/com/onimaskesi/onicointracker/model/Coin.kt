@@ -21,5 +21,8 @@ data class Coin(
 
         @Embedded
         @SerializedName("quote")
-        val quote : Quote?
+        val quote : Quote?,
+
+        @ColumnInfo(name = "isFav")
+        var isFavorite : Int?
 )

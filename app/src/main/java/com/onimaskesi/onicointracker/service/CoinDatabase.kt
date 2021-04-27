@@ -10,7 +10,7 @@ import com.onimaskesi.onicointracker.model.Coin
 import com.onimaskesi.onicointracker.model.FavCoin
 import com.onimaskesi.onicointracker.model.USD
 
-@Database(entities = arrayOf(Coin::class, FavCoin::class), version = 7)
+@Database(entities = arrayOf(Coin::class, FavCoin::class), version = 8)
 abstract class CoinDatabase : RoomDatabase() {
 
     abstract fun coinDao() : CoinDao
@@ -33,11 +33,13 @@ abstract class CoinDatabase : RoomDatabase() {
                 context.applicationContext,
                 CoinDatabase :: class.java,
                 "roomDatabase"
-            ).addMigrations(MIGRATION_3_7).build()
+            ).addMigrations(MIGRATION_3_8).build()
 
-        val MIGRATION_3_7: Migration = object : Migration(3, 7) {
+
+        val MIGRATION_3_8: Migration = object : Migration(3, 8) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `FavCoin` (`id` INTEGER PRIMARY KEY NOT NULL, `sym` TEXT NOT NULL)")
+                database.execSQL("ALTER TABLE Coin ADD COLUMN isFav INTEGER")
             }
         }
 

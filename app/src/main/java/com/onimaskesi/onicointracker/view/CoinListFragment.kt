@@ -29,7 +29,7 @@ import java.math.RoundingMode
 class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     private lateinit var viewModel : CoinListViewModel
-    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this, this)
+    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(),this, this)
 
     private var isLoading = false
 
@@ -136,25 +136,10 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
         })
 
-        viewModel.coinsIsFav.observe(viewLifecycleOwner, Observer { isFavArray ->
-
-            isFavArray?.let{
-
-                if(isFavArray.containsAll(isFavList)){
-                    isFavList.clear()
-                }
-                isFavList.addAll(isFavArray)
-
-                updateRecyclerView()
-
-            }
-
-        })
-
     }
 
     fun updateRecyclerView(){
-        recyclerCoinAdapter.updateCoinList(coinList, isFavList)
+        recyclerCoinAdapter.updateCoinList(coinList)
     }
 
     fun loadingMore(isLoad : Boolean){
@@ -199,16 +184,22 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     override fun favBtnClick(view: View) {
 
-        view.favBtn.setImageResource(R.drawable.filled_heart)
+        //view.favBtn.setImageResource(R.drawable.filled_heart)
         val coinId = view.coinIdTV.text.toString().toInt()
         val coinSym = view.coinSymTV.text.toString()
-
-        Log.d("favBtn", "coin id : $coinId")
-        Log.d("favBtn", "coin id : $coinSym")
+        for (coin in coinList){
+            if(coin.id.toInt() == coinId){
+                coin.isFavorite = 1
+            }
+        }
+        Log.d("favBtn", "fav coin id : $coinId")
+        Log.d("favBtn", "fav coin sym : $coinSym")
 
         val favCoin = FavCoin(coinId, coinSym)
 
         viewModel.setFavCoin(favCoin)
+
+        updateRecyclerView()
 
     }
 

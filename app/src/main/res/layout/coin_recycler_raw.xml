@@ -14,10 +14,6 @@
             type="com.onimaskesi.onicointracker.model.Coin" />
 
         <variable
-            name="isFav"
-            type="Boolean" />
-
-        <variable
             name="coinClickListener"
             type="com.onimaskesi.onicointracker.adapter.CoinClickListener" />
 
@@ -115,7 +111,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:layout_gravity="center"
-            bind:isFav="@{isFav}"
+            bind:isFav="@{coin.isFavorite}"
             android:src="@drawable/heart"
             android:layout_margin="5dp"
             />

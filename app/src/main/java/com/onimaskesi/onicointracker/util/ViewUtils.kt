@@ -77,9 +77,9 @@ fun setTextWithColor(view: TextView, percent : String?){
 }
 
 @BindingAdapter("bind:isFav")
-fun isFav(view : ImageView, isFavorite : Boolean){
+fun isFav(view : ImageView, isFavorite : Int?){
 
-    if(isFavorite){
+    if(isFavorite == 1){
         view.setImageResource(R.drawable.filled_heart)
     } else {
         view.setImageResource(R.drawable.heart)

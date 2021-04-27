@@ -29,7 +29,7 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     }
 
     private lateinit var viewModel: FavViewModel
-    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this, this)
+    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(),this, this)
 
     var coinList : ArrayList<Coin> = arrayListOf()
 
@@ -101,13 +101,11 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     }
 
     fun updateRecyclerView(){
-
-        var isFavList = arrayListOf<Boolean>()
-        for (i in 0 until coinList.size) {
-            isFavList.add(true)
+        for(coin in coinList){
+            coin.isFavorite = 1
         }
+        recyclerCoinAdapter.updateCoinList(coinList)
 
-        recyclerCoinAdapter.updateCoinList(coinList, isFavList)
     }
 
     fun homeNavigationBtnClicked(view : View){
