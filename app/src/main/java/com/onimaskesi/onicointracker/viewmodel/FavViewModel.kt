@@ -35,7 +35,7 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
         favCoinLoading.value = true
 
         launch{
-            /*
+
             val favCoinDao = CoinDatabase(getApplication()).favCoinDao()
             val favCoins = favCoinDao.getFavCoins()
             var favCoinsSymbols = ""
@@ -47,9 +47,6 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
                 }
             }
 
-             */
-
-            var favCoinsSymbols = "BTC,ETH"
             disposable.add(
                 favCoinApiService.getData(favCoinsSymbols)
                     .subscribeOn(Schedulers.newThread())
@@ -59,7 +56,8 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
                             t.favCoins?.let {
 
-                                var coinList = arrayListOf(it.btc, it.eth)
+                                var coinList = arrayListOf<Coin>()
+                                coinList.addAll(it.values.toList())
                                 setCoins(coinList)
 
                             }
