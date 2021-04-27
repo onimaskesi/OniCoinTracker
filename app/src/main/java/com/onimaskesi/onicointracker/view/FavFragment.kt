@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.onimaskesi.onicointracker.R
+import com.onimaskesi.onicointracker.adapter.CoinClickListener
 import com.onimaskesi.onicointracker.adapter.CoinRecyclerAdapter
 import com.onimaskesi.onicointracker.adapter.FavBtnClickListener
 import com.onimaskesi.onicointracker.model.Coin
@@ -21,14 +22,14 @@ import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 import kotlinx.android.synthetic.main.fav_fragment.*
 import kotlinx.android.synthetic.main.fragment_coin_list.*
 
-class FavFragment : Fragment(), FavBtnClickListener {
+class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     companion object {
         fun newInstance() = FavFragment()
     }
 
     private lateinit var viewModel: FavViewModel
-    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this)
+    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this, this)
 
     var coinList : ArrayList<Coin> = arrayListOf()
 
@@ -100,10 +101,12 @@ class FavFragment : Fragment(), FavBtnClickListener {
     }
 
     fun updateRecyclerView(){
+
         var isFavList = arrayListOf<Boolean>()
         for (i in 0 until coinList.size) {
-            isFavList[i] = true
+            isFavList.add(true)
         }
+
         recyclerCoinAdapter.updateCoinList(coinList, isFavList)
     }
 
@@ -128,6 +131,11 @@ class FavFragment : Fragment(), FavBtnClickListener {
 
          */
 
+    }
+
+    override fun coinClick(view: View) {
+        val action = FavFragmentDirections.actionFavFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())
+        Navigation.findNavController(view).navigate(action)
     }
 
 }

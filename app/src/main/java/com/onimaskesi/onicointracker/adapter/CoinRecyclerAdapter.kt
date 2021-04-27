@@ -16,7 +16,7 @@ import com.onimaskesi.onicointracker.view.CoinListFragmentDirections
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 
 
-class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val isfavList : ArrayList<Boolean>, val favBtnClickListener : FavBtnClickListener) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>() , CoinClickListener {
+class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val isfavList : ArrayList<Boolean>, val favBtnClickListener : FavBtnClickListener, val coinClickListener: CoinClickListener) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>(){
 
 
     class CoinViewHolder(var view: CoinRecyclerRawBinding) : RecyclerView.ViewHolder(view.root) {
@@ -45,7 +45,7 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val isfavList : ArrayLi
         }
         holder.view.coin = coinList.get(position)
         holder.view.roundString = RoundString()
-        holder.view.coinClickListener = this
+        holder.view.coinClickListener = coinClickListener
         holder.view.favBtnClickListener = favBtnClickListener
 
     }
@@ -61,10 +61,7 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val isfavList : ArrayLi
     }
 
 
-    override fun coinClick(view: View) {
-        val action = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())
-        Navigation.findNavController(view).navigate(action)
-    }
+
 
 
 }

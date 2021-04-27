@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.onimaskesi.onicointracker.R
+import com.onimaskesi.onicointracker.adapter.CoinClickListener
 import com.onimaskesi.onicointracker.adapter.CoinRecyclerAdapter
 import com.onimaskesi.onicointracker.adapter.FavBtnClickListener
 import com.onimaskesi.onicointracker.model.Coin
@@ -25,10 +26,10 @@ import kotlinx.android.synthetic.main.fragment_coin_list.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class CoinListFragment : Fragment(), FavBtnClickListener {
+class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     private lateinit var viewModel : CoinListViewModel
-    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this)
+    private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(), arrayListOf(),this, this)
 
     private var isLoading = false
 
@@ -213,6 +214,12 @@ class CoinListFragment : Fragment(), FavBtnClickListener {
 
     fun favNavigationBtnClicked(view : View){
         val action = CoinListFragmentDirections.actionCoinListFragmentToFavFragment()
+        Navigation.findNavController(view).navigate(action)
+    }
+
+    override fun coinClick(view: View) {
+
+        val action = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())
         Navigation.findNavController(view).navigate(action)
     }
 

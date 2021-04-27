@@ -8,4 +8,5 @@ data class Quote(
         @Embedded
         @SerializedName("USD")
         val usd : USD
+
 )

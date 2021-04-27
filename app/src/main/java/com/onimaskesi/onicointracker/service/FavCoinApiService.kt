@@ -1,6 +1,7 @@
 package com.onimaskesi.onicointracker.service
 
 import com.onimaskesi.onicointracker.model.CoinList
+import com.onimaskesi.onicointracker.model.FavCoinsList
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -16,7 +17,7 @@ class FavCoinApiService {
             .build()
             .create(FavCoinApi :: class.java)
 
-    fun getData(symbol : String?) : Single<CoinList> {
+    fun getData(symbol : String?) : Single<FavCoinsList> {
         return api.getFavCoins(symbol)
     }
 }

@@ -4,8 +4,12 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.room.Embedded
+import com.google.gson.annotations.SerializedName
 import com.onimaskesi.onicointracker.model.Coin
 import com.onimaskesi.onicointracker.model.CoinList
+import com.onimaskesi.onicointracker.model.FavCoinsList
+import com.onimaskesi.onicointracker.model.USD
 import com.onimaskesi.onicointracker.service.CoinDatabase
 import com.onimaskesi.onicointracker.service.FavCoinApiService
 import com.onimaskesi.onicointracker.util.TimeCheckSharedPreferences
@@ -31,7 +35,7 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
         favCoinLoading.value = true
 
         launch{
-
+            /*
             val favCoinDao = CoinDatabase(getApplication()).favCoinDao()
             val favCoins = favCoinDao.getFavCoins()
             var favCoinsSymbols = ""
@@ -43,17 +47,20 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
                 }
             }
 
+             */
 
+            var favCoinsSymbols = "BTC,ETH"
             disposable.add(
                 favCoinApiService.getData(favCoinsSymbols)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(object : DisposableSingleObserver<CoinList>(){
-                        override fun onSuccess(t: CoinList) {
+                    .subscribeWith(object : DisposableSingleObserver<FavCoinsList>(){
+                        override fun onSuccess(t: FavCoinsList) {
 
-                            t.coins?.let {
+                            t.favCoins?.let {
 
-                                setCoins(it)
+                                var coinList = arrayListOf(it.btc, it.eth)
+                                setCoins(coinList)
 
                             }
                             //Toast.makeText(getApplication(), "API", Toast.LENGTH_SHORT).show()
@@ -68,11 +75,12 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
             )
 
         }
+
     }
 
-    fun setCoins(coinList : List<Coin>?){
+    fun setCoins(favCoinList: List<Coin>){
 
-        favCoins.value = coinList!!
+        favCoins.value = favCoinList!!
         favCoinErrorMessage.value = false
         favCoinLoading.value = false
 
@@ -83,5 +91,7 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
         favCoinLoading.value = false
         Log.e("Api", "FavCoin Api Error: " + e.message.toString())
     }
+
+
 
 }
