@@ -1,6 +1,5 @@
 package com.onimaskesi.onicointracker.view
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,10 +18,6 @@ import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 import kotlinx.android.synthetic.main.fav_fragment.*
 
 class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
-
-    companion object {
-        fun newInstance() = FavFragment()
-    }
 
     private lateinit var viewModel: FavViewModel
     private var recyclerCoinAdapter = CoinRecyclerAdapter(arrayListOf(),this, this)
@@ -45,10 +40,6 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
         favListRecyclerView.adapter = recyclerCoinAdapter
 
         observeLiveData()
-
-        homeNavigationBtn.setOnClickListener{
-            homeNavigationBtnClicked(it)
-        }
 
         favSwipeRefreshLayout.setOnRefreshListener {
             favListProgressBar.visibility = View.VISIBLE
@@ -106,23 +97,23 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     }
 
     fun updateRecyclerView(){
-        for(coin in coinList){
-            coin.isFavorite = 1
-        }
+
         recyclerCoinAdapter.updateCoinList(coinList)
 
     }
 
-    fun homeNavigationBtnClicked(view : View){
-        val action = FavFragmentDirections.actionFavFragmentToCoinListFragment()
-        Navigation.findNavController(view).navigate(action)
-    }
-
     override fun favBtnClick(view: View) {
 
-        view.favBtn.setImageResource(R.drawable.heart)
         val coinId = view.coinIdTV.text.toString().toInt()
         viewModel.deleteFavCoin(coinId)
+
+        for (coin in coinList){
+            if(coin.id.toInt() == coinId){
+                coin.isFavorite = 0
+            }
+        }
+
+        updateRecyclerView()
 
     }
 

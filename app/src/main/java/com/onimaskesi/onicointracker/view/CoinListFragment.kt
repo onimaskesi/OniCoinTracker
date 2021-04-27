@@ -34,7 +34,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     private var isLoading = false
 
     var coinList : ArrayList<Coin> = arrayListOf()
-    var isFavList : ArrayList<Boolean> = arrayListOf()
 
     var start = 1
     var limit  = 10
@@ -42,11 +41,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     val PREFS_FILENAME = "onimaskesi"
     val KEY = "start"
     lateinit var prefences : SharedPreferences
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,10 +79,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
         this.getActivity()?.let{
             prefences = it.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
             start = prefences.getInt(KEY, 1)
-        }
-
-        favNavigationBtn.setOnClickListener {
-            favNavigationBtnClicked(it)
         }
 
     }
@@ -184,7 +174,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     override fun favBtnClick(view: View) {
 
-        //view.favBtn.setImageResource(R.drawable.filled_heart)
         val coinId = view.coinIdTV.text.toString().toInt()
         val coinSym = view.coinSymTV.text.toString()
         for (coin in coinList){
@@ -199,11 +188,6 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
         updateRecyclerView()
 
-    }
-
-    fun favNavigationBtnClicked(view : View){
-        val action = CoinListFragmentDirections.actionCoinListFragmentToFavFragment()
-        Navigation.findNavController(view).navigate(action)
     }
 
     override fun coinClick(view: View) {

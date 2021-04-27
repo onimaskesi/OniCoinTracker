@@ -58,6 +58,10 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
                                 var coinList = arrayListOf<Coin>()
                                 coinList.addAll(it.values.toList())
+
+                                for(coin in coinList){
+                                    coin.isFavorite = 1
+                                }
                                 setCoins(coinList)
 
                             }
@@ -97,9 +101,11 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
             favCoinDao.deleteFromId(coinId)
 
+            /*
             val coin = coinDao.getCoin(coinId)
             coin.isFavorite = 0
             coinDao.updateCoin(coin)
+             */
 
         }
     }

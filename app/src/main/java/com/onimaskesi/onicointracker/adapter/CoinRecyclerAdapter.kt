@@ -1,19 +1,14 @@
 package com.onimaskesi.onicointracker.adapter
 
-import android.util.Log
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.databinding.CoinRecyclerRawBinding
 import com.onimaskesi.onicointracker.model.Coin
 import com.onimaskesi.onicointracker.util.RoundString
-import com.onimaskesi.onicointracker.view.CoinListFragmentDirections
-import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 
 
 class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val favBtnClickListener : FavBtnClickListener, val coinClickListener: CoinClickListener) : RecyclerView.Adapter<CoinRecyclerAdapter.CoinViewHolder>(){
@@ -50,9 +45,5 @@ class CoinRecyclerAdapter(val coinList: ArrayList<Coin>, val favBtnClickListener
         coinList.addAll(newCoinList)
         notifyDataSetChanged()
     }
-
-
-
-
 
 }

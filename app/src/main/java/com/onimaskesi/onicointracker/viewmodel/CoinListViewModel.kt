@@ -9,6 +9,7 @@ import com.onimaskesi.onicointracker.model.CoinList
 import com.onimaskesi.onicointracker.model.FavCoin
 import com.onimaskesi.onicointracker.service.CoinApiService
 import com.onimaskesi.onicointracker.service.CoinDatabase
+import com.onimaskesi.onicointracker.service.FavCoinDao
 import com.onimaskesi.onicointracker.util.TimeCheckSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -119,7 +120,6 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
                         coin.isFavorite = 1
                     }
                 }
-
             }
 
             coinDao.insertAll(*coinList.toTypedArray())
@@ -139,7 +139,22 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
         launch {
             val coinDatabase = CoinDatabase(getApplication()) as CoinDatabase
             val coinDao = coinDatabase.coinDao()
-            setCoins(coinDao.getCoins())
+            val favCoinDao = coinDatabase.favCoinDao()
+            var coinList = coinDao.getCoins()
+
+            coinList?.let{
+                for(coin in coinList){
+                    if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
+
+                        coin.isFavorite = 0
+
+                    } else {
+                        coin.isFavorite = 1
+                    }
+                }
+            }
+
+            setCoins(coinList)
 
         }
     }
@@ -157,7 +172,6 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
                 val coin = coinDao.getCoin(favCoin.id)
                 coin.isFavorite = 1
                 coinDao.updateCoin(coin)
-                //getDataFromSqliteWithRoom()
 
                 Log.d("FavCoin", "added new Fav that's symbol is ${favCoinDao.getFavCoin(favCoin.id).sym}")
             }

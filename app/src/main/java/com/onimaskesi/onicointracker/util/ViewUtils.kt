@@ -80,9 +80,9 @@ fun setTextWithColor(view: TextView, percent : String?){
 fun isFav(view : ImageView, isFavorite : Int?){
 
     if(isFavorite == 1){
-        view.setImageResource(R.drawable.filled_heart)
+        view.setImageResource(R.drawable.ic_baseline_favorite_24)
     } else {
-        view.setImageResource(R.drawable.heart)
+        view.setImageResource(R.drawable.ic_baseline_favorite_border_24)
     }
 
 }

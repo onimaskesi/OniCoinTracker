@@ -29,18 +29,12 @@
         <action
             android:id="@+id/action_coinListFragment_to_coinDetailFragment"
             app:destination="@id/coinDetailFragment" />
-        <action
-            android:id="@+id/action_coinListFragment_to_favFragment"
-            app:destination="@id/favFragment" />
     </fragment>
     <fragment
         android:id="@+id/favFragment"
         android:name="com.onimaskesi.onicointracker.view.FavFragment"
         android:label="fav_fragment"
         tools:layout="@layout/fav_fragment" >
-        <action
-            android:id="@+id/action_favFragment_to_coinListFragment"
-            app:destination="@id/coinListFragment" />
         <action
             android:id="@+id/action_favFragment_to_coinDetailFragment"
             app:destination="@id/coinDetailFragment" />

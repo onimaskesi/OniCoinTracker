@@ -112,7 +112,7 @@
             android:background="#00FFFFFF"
             android:layout_gravity="center"
             bind:isFav="@{coin.isFavorite}"
-            android:src="@drawable/heart"
+            android:src="@drawable/ic_baseline_favorite_border_24"
             android:layout_margin="5dp"
             />
 
