@@ -102,35 +102,44 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
 
         launch {
 
-            val coinDatabase = CoinDatabase(getApplication()) as CoinDatabase
+            val coinDatabase = CoinDatabase(getApplication())
             val coinDao = coinDatabase.coinDao()
             val favCoinDao = coinDatabase.favCoinDao()
+
+            var coinsThatIsNotInDB = arrayListOf<Coin>()
 
             if(!isLoadMore){
                 coinDao.deleteAll()
             }
 
+
             coinList?.let{
                 for(coin in coinList){
+
+                    //if coins is fav than isFavorite variable is 1 else 0
                     if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
 
                         coin.isFavorite = 0
-
+                        coinsThatIsNotInDB.add(coin)
                     } else {
                         coin.isFavorite = 1
+                        if(coinDao.getCoin(coin.id.toInt()) == null){
+                            coinsThatIsNotInDB.add(coin)
+                        }
                     }
                 }
             }
 
-            coinDao.insertAll(*coinList.toTypedArray())
+            coinDao.insertAll(*coinsThatIsNotInDB.toTypedArray())
 
-            setCoins(coinList)
+            setCoins(coinsThatIsNotInDB)
 
         }
 
         timeCheckSheredPreferences.saveTime(System.nanoTime())
 
     }
+
 
     fun getDataFromSqliteWithRoom(){
 

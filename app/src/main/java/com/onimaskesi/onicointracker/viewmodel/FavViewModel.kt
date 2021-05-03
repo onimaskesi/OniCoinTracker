@@ -93,6 +93,7 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
             for(favCoin in favCoinList){
                 if(coinDao.getCoin(favCoin.id.toInt()) == null){
+
                     coinDao.insertAll(favCoin)
                 }
             }
