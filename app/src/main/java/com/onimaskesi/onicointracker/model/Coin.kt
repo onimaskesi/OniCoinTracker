@@ -3,10 +3,13 @@ package com.onimaskesi.onicointracker.model
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
 
-@Entity
+@Entity(indices = [Index(value = ["id"], unique = true, name = "index1")])
 data class Coin(
 
-        @PrimaryKey
+        @PrimaryKey(autoGenerate = true)
+        @ColumnInfo(name = "coinIndex")
+        val coinIndex : Int,
+
         @ColumnInfo(name = "id")
         @SerializedName("id")
         val id : Long,

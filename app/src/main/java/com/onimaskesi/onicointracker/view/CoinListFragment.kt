@@ -114,9 +114,7 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
             coins?.let{
                 coinListRecyclerView.visibility = View.VISIBLE
 
-                if(coins.containsAll(coinList)){
-                    coinList.clear()
-                }
+                coinList.clear()
                 coinList.addAll(coins)
 
                 updateRecyclerView()

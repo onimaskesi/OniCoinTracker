@@ -106,33 +106,31 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
             val coinDao = coinDatabase.coinDao()
             val favCoinDao = coinDatabase.favCoinDao()
 
-            var coinsThatIsNotInDB = arrayListOf<Coin>()
+            val coinsThatIsNotInDB = arrayListOf<Coin>()
 
             if(!isLoadMore){
                 coinDao.deleteAll()
             }
 
 
-            coinList?.let{
-                for(coin in coinList){
+            for(coin in coinList){
 
-                    //if coins is fav than isFavorite variable is 1 else 0
-                    if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
+                //if coins is fav than isFavorite variable is 1 else 0
+                if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
 
-                        coin.isFavorite = 0
+                    coin.isFavorite = 0
+                    coinsThatIsNotInDB.add(coin)
+                } else {
+                    coin.isFavorite = 1
+                    if(coinDao.getCoin(coin.id.toInt()) == null){
                         coinsThatIsNotInDB.add(coin)
-                    } else {
-                        coin.isFavorite = 1
-                        if(coinDao.getCoin(coin.id.toInt()) == null){
-                            coinsThatIsNotInDB.add(coin)
-                        }
                     }
                 }
             }
 
             coinDao.insertAll(*coinsThatIsNotInDB.toTypedArray())
 
-            setCoins(coinsThatIsNotInDB)
+            getDataFromSqliteWithRoom()
 
         }
 
@@ -146,20 +144,18 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
         coinLoading.value = true
 
         launch {
-            val coinDatabase = CoinDatabase(getApplication()) as CoinDatabase
+            val coinDatabase = CoinDatabase(getApplication())
             val coinDao = coinDatabase.coinDao()
             val favCoinDao = coinDatabase.favCoinDao()
-            var coinList = coinDao.getCoins()
+            val coinList = coinDao.getCoins()
 
-            coinList?.let{
-                for(coin in coinList){
-                    if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
+            for(coin in coinList){
+                if(favCoinDao.getFavCoin(coin.id.toInt()) == null){
 
-                        coin.isFavorite = 0
+                    coin.isFavorite = 0
 
-                    } else {
-                        coin.isFavorite = 1
-                    }
+                } else {
+                    coin.isFavorite = 1
                 }
             }
 
@@ -170,7 +166,7 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
 
     fun setFavCoin(favCoin: FavCoin) {
         launch {
-            val coinDatabase = CoinDatabase(getApplication()) as CoinDatabase
+            val coinDatabase = CoinDatabase(getApplication())
             val favCoinDao = coinDatabase.favCoinDao()
             val coinDao = coinDatabase.coinDao()
 
