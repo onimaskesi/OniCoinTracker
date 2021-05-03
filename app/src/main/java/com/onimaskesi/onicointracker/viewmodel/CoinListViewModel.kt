@@ -168,15 +168,10 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
         launch {
             val coinDatabase = CoinDatabase(getApplication())
             val favCoinDao = coinDatabase.favCoinDao()
-            val coinDao = coinDatabase.coinDao()
 
             if(favCoinDao.getFavCoin(favCoin.id) == null){
 
                 favCoinDao.insertAll(favCoin)
-
-                val coin = coinDao.getCoin(favCoin.id)
-                coin.isFavorite = 1
-                coinDao.updateCoin(coin)
 
                 Log.d("FavCoin", "added new Fav that's symbol is ${favCoinDao.getFavCoin(favCoin.id).sym}")
             }

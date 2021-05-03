@@ -122,12 +122,6 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:text="@{coinId.text}"/>
-        <TextView
-            android:id="@+id/coinSymTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@{coinSymbolTV.text}"/>
 
     </LinearLayout>
 

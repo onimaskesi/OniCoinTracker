@@ -173,18 +173,32 @@ class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     override fun favBtnClick(view: View) {
 
         val coinId = view.coinIdTV.text.toString().toInt()
-        val coinSym = view.coinSymTV.text.toString()
+        var clickedCoin : Coin? = null
+
         for (coin in coinList){
             if(coin.id.toInt() == coinId){
-                coin.isFavorite = 1
+                clickedCoin = coin
+                break
             }
         }
 
-        val favCoin = FavCoin(coinId, coinSym)
+        clickedCoin?.let {
 
-        viewModel.setFavCoin(favCoin)
+            if(clickedCoin.isFavorite != 1){ // if the coin is not favorite
 
-        updateRecyclerView()
+                clickedCoin.isFavorite = 1
+
+                val favCoin = FavCoin(coinId, clickedCoin.sym!!)
+
+                viewModel.setFavCoin(favCoin)
+
+                updateRecyclerView()
+
+            }
+
+        }
+
+
 
     }
 

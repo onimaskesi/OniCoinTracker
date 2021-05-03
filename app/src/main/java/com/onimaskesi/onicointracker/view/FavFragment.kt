@@ -136,15 +136,26 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     override fun favBtnClick(view: View) {
 
         val coinId = view.coinIdTV.text.toString().toInt()
-        viewModel.deleteFavCoin(coinId)
+        var clickedCoin : Coin? = null
 
         for (coin in coinList){
             if(coin.id.toInt() == coinId){
-                coin.isFavorite = 0
+                clickedCoin = coin
+                break
             }
         }
 
-        updateRecyclerView()
+        clickedCoin?.let{
+            if(clickedCoin.isFavorite != 0){
+
+                clickedCoin.isFavorite = 0
+
+                viewModel.deleteFavCoin(coinId)
+
+                updateRecyclerView()
+            }
+
+        }
 
     }
 
