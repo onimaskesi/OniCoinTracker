@@ -1,6 +1,10 @@
 package com.onimaskesi.onicointracker.view
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +28,8 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     var coinList : ArrayList<Coin> = arrayListOf()
 
+    var preferences : SharedPreferences? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,9 +47,6 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
         observeLiveData()
 
-        val mainActivity = activity as MainActivity
-        mainActivity.createInterstitialAd()
-
         favSwipeRefreshLayout.setOnRefreshListener {
             favListProgressBar.visibility = View.VISIBLE
             favListErrorMessage.visibility = View.GONE
@@ -52,11 +55,36 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
             viewModel.getFavCoins()
 
             favSwipeRefreshLayout.isRefreshing = false
-
         }
+
+        context?.let{
+            preferences = it.getSharedPreferences("Oni", MODE_PRIVATE)
+        }
+
+        handleAd()
+
     }
 
-    fun observeLiveData(){
+    private fun handleAd(){
+        //when go to the details and come back than don't show ad
+        preferences?.let { prf ->
+            val showAd = prf.getInt("showAd", 1)
+            if(showAd == 1){
+                showAd()
+            }
+            else{
+                prf.edit().putInt("showAd", 1).apply()
+            }
+        }
+
+    }
+
+    private fun showAd(){
+        val mainActivity = activity as MainActivity
+        mainActivity.createInterstitialAd()
+    }
+
+    private fun observeLiveData(){
 
         favListErrorMessage.visibility = View.INVISIBLE
         favListProgressBar.visibility = View.VISIBLE
@@ -99,7 +127,7 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     }
 
-    fun updateRecyclerView(){
+    private fun updateRecyclerView(){
 
         recyclerCoinAdapter.updateCoinList(coinList)
 
@@ -121,6 +149,11 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
     }
 
     override fun coinClick(view: View) {
+
+        preferences?.let{ prf ->
+            prf.edit().putInt("showAd", 0).apply()
+        }
+
         val action = FavFragmentDirections.actionFavFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())
         Navigation.findNavController(view).navigate(action)
     }

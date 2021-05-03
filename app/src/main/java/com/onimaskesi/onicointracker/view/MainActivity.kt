@@ -46,8 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun createInterstitialAd(){
-        // "testb4znbuh3n2" is a dedicated test ad unit ID. Before releasing your app, replace the test ad unit ID with the formal one.
-        interstitialAd.adId = "testb4znbuh3n2"
+        interstitialAd.adId = getString(R.string.INTERSTITIAL_AD_ID)
         loadInterstitialAd()
     }
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         // Load an interstitial ad.
         val adParam = AdParam.Builder().build()
         interstitialAd.loadAd(adParam)
-        interstitialAd.adListener = adListener
+        interstitialAd.adListener = interstitialAdListener
 
     }
 
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private val adListener: AdListener = object : AdListener() {
+    private val interstitialAdListener: AdListener = object : AdListener() {
         override fun onAdLoaded() {
             // Called when an ad is loaded successfully.
             showInterstitialAd()

@@ -1,5 +1,6 @@
 package com.onimaskesi.onicointracker.view
 
+import android.content.Context.MODE_PRIVATE
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
