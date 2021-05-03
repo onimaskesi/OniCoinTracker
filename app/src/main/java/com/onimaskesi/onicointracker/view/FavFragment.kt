@@ -41,6 +41,9 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
         observeLiveData()
 
+        val mainActivity = activity as MainActivity
+        mainActivity.createInterstitialAd()
+
         favSwipeRefreshLayout.setOnRefreshListener {
             favListProgressBar.visibility = View.VISIBLE
             favListErrorMessage.visibility = View.GONE

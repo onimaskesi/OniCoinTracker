@@ -17,7 +17,9 @@ import androidx.vectordrawable.graphics.drawable.ArgbEvaluator
 import com.huawei.hms.ads.AdListener
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
+import com.huawei.hms.ads.InterstitialAd
 import com.huawei.hms.ads.banner.BannerView
+import com.huawei.hms.ads.splash.SplashView
 import com.huawei.hms.push.HmsMessageService
 import com.huawei.hms.push.HmsMessaging
 import com.onimaskesi.onicointracker.R
@@ -26,6 +28,9 @@ import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    var interstitialAd = InterstitialAd(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,16 +41,72 @@ class MainActivity : AppCompatActivity() {
         val hmsMessaging = HmsMessaging.getInstance(this)
         hmsMessaging.isAutoInitEnabled = true
 
-        createBannerView()
+        createBannerAd()
+        createInterstitialAd()
+    }
+
+    fun createInterstitialAd(){
+        // "testb4znbuh3n2" is a dedicated test ad unit ID. Before releasing your app, replace the test ad unit ID with the formal one.
+        interstitialAd.adId = "testb4znbuh3n2"
+        loadInterstitialAd()
+    }
+
+    private fun loadInterstitialAd() {
+
+        // Load an interstitial ad.
+        val adParam = AdParam.Builder().build()
+        interstitialAd.loadAd(adParam)
+        interstitialAd.adListener = adListener
 
     }
 
-    fun createBannerView(){
+    private fun showInterstitialAd() {
+        // Display the ad.
+        if (interstitialAd != null && interstitialAd!!.isLoaded) {
+            interstitialAd!!.show(this)
+        } else {
+            Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private val adListener: AdListener = object : AdListener() {
+        override fun onAdLoaded() {
+            // Called when an ad is loaded successfully.
+            showInterstitialAd()
+        }
+        override fun onAdFailed(errorCode: Int) {
+            // Called when an ad fails to be loaded.
+
+        }
+        override fun onAdClosed() {
+            // Called when an ad is closed.
+
+        }
+        override fun onAdClicked() {
+            // Called when an ad is clicked.
+
+        }
+        override fun onAdLeave() {
+            // Called when an ad leaves an app.
+
+        }
+        override fun onAdOpened() {
+            // Called when an ad is opened.
+
+        }
+        override fun onAdImpression() {
+            // Called when an ad impression occurs.
+
+        }
+    }
+
+    fun createBannerAd(){
         // Obtain BannerView.
         val bannerView: BannerView? = findViewById(R.id.hw_banner_view)
         bannerView?.let{
             // Set the ad unit ID and ad dimensions. "testw6vs28auh3" is a dedicated test ad unit ID.
-            bannerView.adId = "testw6vs28auh3"
+            bannerView.adId = getString(R.string.BANNER_AD_ID)
             bannerView.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
             // Set the refresh interval to 30 seconds.
             bannerView.setBannerRefresh(30)
@@ -53,12 +114,12 @@ class MainActivity : AppCompatActivity() {
             val adParam = AdParam.Builder().build()
             bannerView.loadAd(adParam)
 
-            bannerView.adListener = adListener
+            bannerView.adListener = bannerAdListener
         }
 
     }
 
-    private val adListener: AdListener = object : AdListener() {
+    private val bannerAdListener: AdListener = object : AdListener() {
         override fun onAdLoaded() {
             // Called when an ad is loaded successfully.
 
