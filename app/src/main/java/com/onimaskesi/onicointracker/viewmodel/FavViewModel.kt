@@ -27,9 +27,6 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
     private val favCoinApiService = FavCoinApiService()
     private val disposable = CompositeDisposable()
 
-    private val timeCheckSheredPreferences = TimeCheckSharedPreferences(getApplication())
-    private val updateTime = 10 * 60 * 1000 * 1000 * 1000L // 10 minutes
-
     fun getFavCoins(){
 
         favCoinLoading.value = true
@@ -56,7 +53,7 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
                             t.favCoins?.let {
 
-                                var coinList = arrayListOf<Coin>()
+                                val coinList = arrayListOf<Coin>()
                                 coinList.addAll(it.values.toList())
 
                                 for(coin in coinList){
@@ -82,10 +79,25 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
     fun setCoins(favCoinList: List<Coin>){
 
-        favCoins.value = favCoinList!!
+        storeInSQlite(favCoinList)
+
+        favCoins.value = favCoinList
         favCoinErrorMessage.value = false
         favCoinLoading.value = false
 
+    }
+
+    fun storeInSQlite(favCoinList: List<Coin>){
+        launch{
+            val coinDao = CoinDatabase(getApplication()).coinDao()
+
+            for(favCoin in favCoinList){
+                if(coinDao.getCoin(favCoin.id.toInt()) == null){
+                    coinDao.insertAll(favCoin)
+                }
+            }
+
+        }
     }
 
     fun setError(e : Throwable){
@@ -97,15 +109,8 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
     fun deleteFavCoin(coinId: Int) {
         launch {
             val favCoinDao = CoinDatabase(getApplication()).favCoinDao()
-            val coinDao = CoinDatabase(getApplication()).coinDao()
 
             favCoinDao.deleteFromId(coinId)
-
-            /*
-            val coin = coinDao.getCoin(coinId)
-            coin.isFavorite = 0
-            coinDao.updateCoin(coin)
-             */
 
         }
     }
