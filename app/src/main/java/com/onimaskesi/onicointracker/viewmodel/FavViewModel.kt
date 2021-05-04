@@ -2,6 +2,7 @@ package com.onimaskesi.onicointracker.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.room.Embedded
@@ -23,6 +24,7 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
     val favCoins = MutableLiveData<List<Coin>>()
     val favCoinErrorMessage = MutableLiveData<Boolean>()
     val favCoinLoading = MutableLiveData<Boolean>()
+    val favCoinIsEmpty = MutableLiveData<Boolean>()
 
     private val favCoinApiService = FavCoinApiService()
     private val disposable = CompositeDisposable()
@@ -35,6 +37,14 @@ class FavViewModel(application : Application) : BaseViewModel(application) {
 
             val favCoinDao = CoinDatabase(getApplication()).favCoinDao()
             val favCoins = favCoinDao.getFavCoins()
+
+            if(favCoinDao.getFavCoins().isEmpty()){
+                favCoinIsEmpty.value = true
+                return@launch
+            } else {
+                favCoinIsEmpty.value = false
+            }
+
             var favCoinsSymbols = ""
 
             for(favCoin in favCoins){

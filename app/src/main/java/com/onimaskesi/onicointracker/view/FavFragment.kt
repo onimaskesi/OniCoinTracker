@@ -1,6 +1,5 @@
 package com.onimaskesi.onicointracker.view
 
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -65,25 +64,6 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     }
 
-    private fun handleAd(){
-        //when go to the details and come back than don't show ad
-        preferences?.let { prf ->
-            val showAd = prf.getInt("showAd", 1)
-            if(showAd == 1){
-                showAd()
-            }
-            else{
-                prf.edit().putInt("showAd", 1).apply()
-            }
-        }
-
-    }
-
-    private fun showAd(){
-        val mainActivity = activity as MainActivity
-        mainActivity.createInterstitialAd()
-    }
-
     private fun observeLiveData(){
 
         favListErrorMessage.visibility = View.INVISIBLE
@@ -106,6 +86,22 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
                     favListErrorMessage.visibility = View.VISIBLE
                 } else {
                     favListErrorMessage.visibility = View.GONE
+                }
+            }
+        })
+
+        viewModel.favCoinIsEmpty.observe(viewLifecycleOwner, Observer { isEmpty ->
+            isEmpty?.let {
+                if (isEmpty) {
+
+                    favListProgressBar.visibility = View.GONE
+                    favListRecyclerView.visibility = View.GONE
+
+                    val yellowHeart = "💛"
+                    val text = getString(R.string.fav_empty_text) + "\n\n" + "$yellowHeart"
+                    favListErrorMessage.text = text
+                    favListErrorMessage.visibility = View.VISIBLE
+
                 }
             }
         })
@@ -133,6 +129,38 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
     }
 
+
+    private fun handleAd(){
+        //when go to the details and come back than don't show ad
+        preferences?.let { prf ->
+            val showAd = prf.getInt("showAd", 1)
+            if(showAd == 1){
+                showAd()
+            }
+            else{
+                prf.edit().putInt("showAd", 1).apply()
+            }
+        }
+
+    }
+
+    private fun showAd(){
+        val mainActivity = activity as MainActivity
+        mainActivity.createInterstitialAd()
+    }
+
+
+
+    override fun coinClick(view: View) {
+
+        preferences?.let{ prf ->
+            prf.edit().putInt("showAd", 0).apply()
+        }
+
+        val action = FavFragmentDirections.actionFavFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())
+        Navigation.findNavController(view).navigate(action)
+    }
+
     override fun favBtnClick(view: View) {
 
         val coinId = view.coinIdTV.text.toString().toInt()
@@ -157,16 +185,6 @@ class FavFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 
         }
 
-    }
-
-    override fun coinClick(view: View) {
-
-        preferences?.let{ prf ->
-            prf.edit().putInt("showAd", 0).apply()
-        }
-
-        val action = FavFragmentDirections.actionFavFragmentToCoinDetailFragment(view.coinId.text.toString().toInt())
-        Navigation.findNavController(view).navigate(action)
     }
 
 }

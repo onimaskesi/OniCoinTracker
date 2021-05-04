@@ -43,7 +43,9 @@ class MainActivity : AppCompatActivity() {
 
         createBannerAd()
         createInterstitialAd()
+
     }
+
 
     fun createInterstitialAd(){
         interstitialAd.adId = getString(R.string.INTERSTITIAL_AD_ID)
@@ -51,7 +53,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadInterstitialAd() {
-
         // Load an interstitial ad.
         val adParam = AdParam.Builder().build()
         interstitialAd.loadAd(adParam)
@@ -67,7 +68,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Ad did not load", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private val interstitialAdListener: AdListener = object : AdListener() {
         override fun onAdLoaded() {
@@ -144,4 +144,5 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
 }

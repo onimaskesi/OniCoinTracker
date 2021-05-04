@@ -29,6 +29,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:text="Error! Try Again!"
+                android:padding="15dp"
+                android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
