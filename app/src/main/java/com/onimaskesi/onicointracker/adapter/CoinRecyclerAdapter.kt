@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.databinding.CoinRecyclerRawBinding
-import com.onimaskesi.onicointracker.model.Coin
+import com.onimaskesi.onicointracker.model.coin.Coin
 import com.onimaskesi.onicointracker.util.RoundString
 
 

@@ -8,7 +8,7 @@
         
         <variable
             name="chosenCoin"
-            type="com.onimaskesi.onicointracker.model.Coin" />
+            type="com.onimaskesi.onicointracker.model.coin.Coin" />
         
     </data>
 

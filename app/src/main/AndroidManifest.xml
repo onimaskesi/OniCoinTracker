@@ -25,7 +25,7 @@
         </activity>
 
         <service
-            android:name=".service.PushService"
+            android:name=".service.notification.PushService"
             android:exported="false">
 
             <intent-filter>

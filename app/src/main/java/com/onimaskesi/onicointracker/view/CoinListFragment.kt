@@ -3,12 +3,10 @@ package com.onimaskesi.onicointracker.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -18,13 +16,11 @@ import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.adapter.CoinClickListener
 import com.onimaskesi.onicointracker.adapter.CoinRecyclerAdapter
 import com.onimaskesi.onicointracker.adapter.FavBtnClickListener
-import com.onimaskesi.onicointracker.model.Coin
-import com.onimaskesi.onicointracker.model.FavCoin
+import com.onimaskesi.onicointracker.model.coin.Coin
+import com.onimaskesi.onicointracker.model.favcoin.FavCoin
 import com.onimaskesi.onicointracker.viewmodel.CoinListViewModel
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 import kotlinx.android.synthetic.main.fragment_coin_list.*
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 class CoinListFragment : Fragment(), FavBtnClickListener, CoinClickListener {
 

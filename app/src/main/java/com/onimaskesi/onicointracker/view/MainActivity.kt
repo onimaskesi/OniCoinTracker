@@ -2,6 +2,7 @@ package com.onimaskesi.onicointracker.view
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator
+import androidx.work.*
 import com.huawei.hms.ads.AdListener
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
@@ -23,13 +25,17 @@ import com.huawei.hms.ads.splash.SplashView
 import com.huawei.hms.push.HmsMessageService
 import com.huawei.hms.push.HmsMessaging
 import com.onimaskesi.onicointracker.R
+import com.onimaskesi.onicointracker.service.notification.NotificationWorker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
+import java.time.Duration
 
 
 class MainActivity : AppCompatActivity() {
 
     var interstitialAd = InterstitialAd(this)
+
+    lateinit var preferences : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +47,30 @@ class MainActivity : AppCompatActivity() {
         val hmsMessaging = HmsMessaging.getInstance(this)
         hmsMessaging.isAutoInitEnabled = true
 
+        preferences = getSharedPreferences("workManagerPref", MODE_PRIVATE)
+
+        if(!preferences.getBoolean("isNotificationWorkerExist", false)){
+            createNotificationWorker()
+            preferences.edit().putBoolean("isNotificationWorkerExist", true).apply()
+        }
+
         createBannerAd()
         createInterstitialAd()
 
+    }
+
+    private fun createNotificationWorker(){
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresBatteryNotLow(true)
+            .build()
+
+        val workRequest : WorkRequest =
+            PeriodicWorkRequestBuilder<NotificationWorker>(Duration.ofHours(12))
+                .setConstraints(constraints)
+                .build()
+
+        WorkManager.getInstance(this).enqueue(workRequest)
     }
 
 

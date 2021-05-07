@@ -2,9 +2,8 @@ package com.onimaskesi.onicointracker.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.onimaskesi.onicointracker.model.Coin
-import com.onimaskesi.onicointracker.service.CoinDatabase
+import com.onimaskesi.onicointracker.model.coin.Coin
+import com.onimaskesi.onicointracker.service.database.CoinDatabase
 import kotlinx.coroutines.launch
 
 class CoinDetailViewModel(application : Application) : BaseViewModel(application) {

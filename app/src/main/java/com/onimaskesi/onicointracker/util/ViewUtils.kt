@@ -86,11 +86,3 @@ fun isFav(view : ImageView, isFavorite : Int?){
     }
 
 }
-
-/*
-fun roundStringFun(value : String) : String {
-        val valueDouble = value.toDouble()
-        val decimal = BigDecimal(valueDouble).setScale(2, RoundingMode.HALF_EVEN)
-        return decimal.toString()
-    }
-* */

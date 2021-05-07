@@ -53,6 +53,7 @@ dependencies {
     def roomVersion = '2.2.3'
     def navVersion = '2.3.0'
     def preference_version = "1.1.1"
+    def work_version = "2.5.0"
     //HMS
     def agconnect_version = "1.5.1.300"
     def push_version = "5.1.1.301"
@@ -84,6 +85,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     implementation "com.android.support:design:$supportVersion"
     implementation "androidx.preference:preference-ktx:$preference_version"
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
     implementation "com.huawei.agconnect:agconnect-core:$agconnect_version"
     implementation "com.huawei.hms:push:$push_version"

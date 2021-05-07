@@ -3,7 +3,6 @@ package com.onimaskesi.onicointracker.view
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.adapter.CoinClickListener
 import com.onimaskesi.onicointracker.adapter.CoinRecyclerAdapter
 import com.onimaskesi.onicointracker.adapter.FavBtnClickListener
-import com.onimaskesi.onicointracker.model.Coin
+import com.onimaskesi.onicointracker.model.coin.Coin
 import com.onimaskesi.onicointracker.viewmodel.FavViewModel
 import kotlinx.android.synthetic.main.coin_recycler_raw.view.*
 import kotlinx.android.synthetic.main.fav_fragment.*

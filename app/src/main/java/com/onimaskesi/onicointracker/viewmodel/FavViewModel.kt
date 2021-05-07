@@ -2,18 +2,11 @@ package com.onimaskesi.onicointracker.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.room.Embedded
-import com.google.gson.annotations.SerializedName
-import com.onimaskesi.onicointracker.model.Coin
-import com.onimaskesi.onicointracker.model.CoinList
-import com.onimaskesi.onicointracker.model.FavCoinsList
-import com.onimaskesi.onicointracker.model.USD
-import com.onimaskesi.onicointracker.service.CoinDatabase
-import com.onimaskesi.onicointracker.service.FavCoinApiService
-import com.onimaskesi.onicointracker.util.TimeCheckSharedPreferences
+import com.onimaskesi.onicointracker.model.coin.Coin
+import com.onimaskesi.onicointracker.model.favcoin.FavCoinsList
+import com.onimaskesi.onicointracker.service.database.CoinDatabase
+import com.onimaskesi.onicointracker.service.api.FavCoinApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
