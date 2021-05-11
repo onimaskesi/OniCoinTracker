@@ -13,17 +13,20 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.onimaskesi.onicointracker.R
 import com.onimaskesi.onicointracker.databinding.FragmentCoinDetailBinding
 import com.onimaskesi.onicointracker.viewmodel.CoinDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CoinDetailFragment : Fragment() {
 
     private var coinId = 0
 
-    private lateinit var viewModel : CoinDetailViewModel
+    private val viewModel : CoinDetailViewModel by viewModels()
 
     private lateinit var dataBinding : FragmentCoinDetailBinding
 
@@ -49,7 +52,6 @@ class CoinDetailFragment : Fragment() {
             coinId = CoinDetailFragmentArgs.fromBundle(it).coinId
         }
 
-        viewModel = ViewModelProviders.of(this).get(CoinDetailViewModel::class.java)
         viewModel.getCoinFromRoom(coinId)
 
         observeLiveData()
