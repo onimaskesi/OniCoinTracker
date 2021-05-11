@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.huawei.hms:ads-lite:13.4.41.301@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/986cb51a4da9a15c290a44d81f2d5acf/jetified-ads-lite-13.4.41.301/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/986cb51a4da9a15c290a44d81f2d5acf/jetified-ads-lite-13.4.41.301/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/986cb51a4da9a15c290a44d81f2d5acf/jetified-ads-lite-13.4.41.301/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/34a3802d529cbbbdc2d7b2d75eff81b1/jetified-ads-lite-13.4.41.301/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/843a1c51a51d46d5e275d0ea25d007d3/jetified-ads-lite-13.4.41.301/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/843a1c51a51d46d5e275d0ea25d007d3/jetified-ads-lite-13.4.41.301/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/843a1c51a51d46d5e275d0ea25d007d3/jetified-ads-lite-13.4.41.301/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

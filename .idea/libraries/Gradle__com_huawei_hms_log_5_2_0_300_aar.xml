@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.huawei.hms:log:5.2.0.300@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dea7efc772dbca75cb6f1b503cde136c/jetified-log-5.2.0.300/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dea7efc772dbca75cb6f1b503cde136c/jetified-log-5.2.0.300/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dea7efc772dbca75cb6f1b503cde136c/jetified-log-5.2.0.300/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/da22ef210914396349efcce85ce25452/jetified-log-5.2.0.300/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf9534ca6c7f8c51ba1fb9130afd700a/jetified-log-5.2.0.300/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf9534ca6c7f8c51ba1fb9130afd700a/jetified-log-5.2.0.300/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf9534ca6c7f8c51ba1fb9130afd700a/jetified-log-5.2.0.300/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.huawei.hms/log/5.2.0.300/da39a3ee5e6b4b0d3255bfef95601890afd80709/log-5.2.0.300-javadoc.jar!/" />

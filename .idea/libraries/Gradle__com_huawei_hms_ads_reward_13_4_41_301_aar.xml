@@ -1,9 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.huawei.hms:ads-reward:13.4.41.301@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eb7bf323bc785a4ba4adfcceb618b29a/jetified-ads-reward-13.4.41.301/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eb7bf323bc785a4ba4adfcceb618b29a/jetified-ads-reward-13.4.41.301/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eb7bf323bc785a4ba4adfcceb618b29a/jetified-ads-reward-13.4.41.301/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/13a7605bb76e81931001c61427843fc6/jetified-ads-reward-13.4.41.301/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8a82fa8e7e09c2af421f7262760a93fb/jetified-ads-reward-13.4.41.301/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8a82fa8e7e09c2af421f7262760a93fb/jetified-ads-reward-13.4.41.301/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8a82fa8e7e09c2af421f7262760a93fb/jetified-ads-reward-13.4.41.301/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

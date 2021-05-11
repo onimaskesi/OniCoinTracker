@@ -2,6 +2,7 @@ package com.onimaskesi.onicointracker.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import com.onimaskesi.onicointracker.model.coin.Coin
 import com.onimaskesi.onicointracker.model.coin.CoinList
@@ -15,13 +16,16 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class CoinListViewModel(application : Application) : BaseViewModel(application) {
+class CoinListViewModel @ViewModelInject constructor(
+        application : Application,
+        private val coinApiService : CoinApiService,
+        private val coinDatabase : CoinDatabase
+) : BaseViewModel(application) {
 
     val coins = MutableLiveData<List<Coin>>()
     val coinErrorMessage = MutableLiveData<Boolean>()
     val coinLoading = MutableLiveData<Boolean>()
 
-    private val coinApiService = CoinApiService()
     private val disposable = CompositeDisposable()
 
     private val start = 1
@@ -100,7 +104,6 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
 
         launch {
 
-            val coinDatabase = CoinDatabase(getApplication())
             val coinDao = coinDatabase.coinDao()
             val favCoinDao = coinDatabase.favCoinDao()
 
@@ -142,7 +145,6 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
         coinLoading.value = true
 
         launch {
-            val coinDatabase = CoinDatabase(getApplication())
             val coinDao = coinDatabase.coinDao()
             val favCoinDao = coinDatabase.favCoinDao()
             val coinList = coinDao.getCoins()
@@ -164,7 +166,6 @@ class CoinListViewModel(application : Application) : BaseViewModel(application) 
 
     fun setFavCoin(favCoin: FavCoin) {
         launch {
-            val coinDatabase = CoinDatabase(getApplication())
             val favCoinDao = coinDatabase.favCoinDao()
 
             if(favCoinDao.getFavCoin(favCoin.id) == null){
